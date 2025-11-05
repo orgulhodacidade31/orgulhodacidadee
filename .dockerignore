@@ -1,0 +1,7 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+Frontend/inscricoes.json
+Frontend/contatos.json
+Frontend/contratacoes.json

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boi Orgulho da Cidade</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Adicione o ícone do site aqui -->
+    <link rel="icon" href="assets/images/boi-cidade-operaria-azul.icon" type="image/x-icon">
+</head>
+<body>
+    <header class="main-header">
+        <nav class="main-nav">
+            <div class="nav-container">               
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Início</a></li>
+                    <li><a href="fotos.html">Fotos</a></li>
+                    <li><a href="musicas.html">Músicas</a></li>
+                    <li><a href="sobre.html">Sobre</a></li>
+                    <li><a href="inscricao.html">Seletiva 2026</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+                <button class="mobile-menu" aria-label="Menu">☰</button>
+            </div>
+            <div class="nav-accent" aria-hidden="true"></div>
+        </nav>
+    </header>
+
+    <main class="home-content">
+        <section class="hero">
+            <div class="inicio-conteudo">
+                <!-- Logo centralizada acima do título (use images/logo.png) -->
+                <img src="logo.png" alt="Logo Boi Orgulho da Cidade" class="hero-logo">
+                <h1>Bem-vindo ao Boi Orgulho da Cidade</h1>
+                <p>A mais autêntica brincadeira de São João!</p>
+            </div>
+        </section>
+
+        <section class="highlights">
+            <h2>Nossos Brincantes</h2>
+            <div class="brincantes-carousel">
+                <div class="carousel-container">
+                    <div class="carousel-track">
+                        <!-- Imagens dos brincantes -->
+                        <div class="carousel-slide">
+                            <img src="brincante1.jpg" alt="Brincante 1" loading="lazy">                            
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="brincante2.jpg" alt="Brincante 2" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="brincante3.jpg" alt="Brincante 3" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="brincante4.jpg" alt="Brincante 4" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="brincante5.jpg" alt="Brincante 5" loading="lazy">                            
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="brincante6.jpg" alt="Brincante 6" loading="lazy">                            
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="brincante7.jpg" alt="Brincante 7" loading="lazy">                            
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="brincante8.jpg" alt="Brincante 8" loading="lazy">                            
+                        </div>
+                    </div>
+                    <!-- Botões de navegação -->
+                    <button class="carousel-button prev" aria-label="Anterior">❮</button>
+                    <button class="carousel-button next" aria-label="Próximo">❯</button>
+                </div>
+                <!-- Indicadores de slide -->
+                <div class="carousel-indicators"></div>
+            </div>
+        </section>
+
+        <!-- Seção de Apresentações -->
+        <section class="apresentacoes container" id="apresentacoes-section">
+            <h2>Próximas Apresentações</h2>
+
+            <!-- Formulário simples para adicionar apresentações (usa localStorage) -->
+            <form id="form-apresentacao" class="card admin-form" style="display:none;">
+                <h3 style="margin-bottom:1.5rem;color:var(--cor-primaria);text-align:center;">Gerenciar Apresentações</h3>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="titulo">Título da Apresentação</label>
+                        <input type="text" id="titulo" placeholder="Ex: REVIVER" required />
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="data_inicio">Data de Início</label>
+                            <input type="date" id="data_inicio" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inicio">Hora de Início</label>
+                            <input type="time" id="inicio" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="data_fim">Data de Término</label>
+                            <input type="date" id="data_fim" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fim">Hora de Término</label>
+                            <input type="time" id="fim" />
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="local">Local</label>
+                        <input type="text" id="local" placeholder="Ex: Praça Central" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="liveUrl">Link da Transmissão (YouTube)</label>
+                        <input type="url" id="liveUrl" placeholder="https://youtu.be/..." />
+                        <small>Cole aqui o link do YouTube que será usado durante a apresentação.</small>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-save"></i>
+                            <span>Salvar Apresentação</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="form-help">
+                    <p>
+                        <i class="fas fa-info-circle"></i>
+                        Dicas:
+                    </p>
+                    <ul>
+                        <li>As apresentações são exibidas automaticamente no horário programado</li>
+                        <li>O link do YouTube pode ser adicionado/alterado a qualquer momento</li>
+                        <li>Use o botão "Editar" em uma apresentação existente para fazer alterações</li>
+                    </ul>
+                </div>
+            </form>
+
+            <div class="lista-apresentacoes" id="lista-apresentacoes">
+                <!-- cards serão injetados aqui via JS -->
+            </div>
+        </section>
+
+    </main>   
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Sobre Nós</h3>
+                <p>O Boi Orgulho da Cidade é uma manifestação cultural que celebra a tradição do bumba-meu-boi no Maranhão.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Links Rápidos</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="fotos.html">Fotos</a></li>
+                    <li><a href="musicas.html">Músicas</a></li>
+                    <li><a href="sobre.html">Sobre</a></li>
+                    <li><a href="inscricao.html">Seletiva 2026</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <ul class="footer-links">
+                    <li>São Luís, MA</li>
+                    <li>Tel: (98) 9xxxx-xxxx</li>
+                    <li>Email: contato@boiorgulho.com.br</li>
+                </ul>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Boi Orgulho da Cidade. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+        <style>
+            /* small responsive tweak: collapse chat on very small screens */
+            @media (max-width:600px){
+                #chat-sidebar{width:100%;height:38vh;bottom:0;top:auto;left:0;right:0;max-width:100%;}
+            }
+        </style>
+
+    <!-- Font Awesome para ícones de redes sociais -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="script.js"></script>
+    <script src="carousel.js"></script>
+        <script src="chat.js"></script>
+</body>
+</html>

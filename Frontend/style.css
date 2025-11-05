@@ -1,0 +1,2679 @@
+/* Variáveis de cores - paleta baseada em images/logo.png */
+/* Fontes (IMPORT must be at top of stylesheet) */
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* Custom Audio Player Styles */
+.audio-player-section {
+    padding: 2rem 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Center the player between the headings */
+.audio-player-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Ensure player box doesn't exceed available width */
+.custom-audio-player {
+    width: 100%;
+    max-width: 760px;
+}
+
+/* Center the page headings so the player is visually between them */
+.music-content h1,
+.platform-links-section h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.custom-audio-player {
+    background: linear-gradient(to bottom, #1a1a1a, #000);
+    border-radius: 12px;
+    padding: 1.5rem;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.player-info {
+    margin-bottom: 1rem;
+}
+
+.song-info {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.current-song-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
+.current-song-artist {
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.player-progress {
+    width: 100%;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+    margin-bottom: 0.5rem;
+}
+
+.progress-current {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: var(--cor-destaque, #ff4d4d);
+    border-radius: 2px;
+    width: 0;
+}
+
+.time-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #ccc;
+}
+
+.player-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.control-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-btn:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.play-pause {
+    width: 50px;
+    height: 50px;
+    background: var(--cor-destaque, #ff4d4d);
+    font-size: 1.4rem;
+    transition: transform 0.2s ease;
+}
+
+.play-pause:hover {
+    transform: scale(1.1);
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.volume-slider {
+    width: 80px;
+    height: 4px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    outline: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+
+.volume-slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .custom-audio-player {
+        padding: 1rem;
+    }
+
+    .player-controls {
+        gap: 1rem;
+    }
+
+    .control-btn {
+        font-size: 1rem;
+        width: 35px;
+        height: 35px;
+    }
+
+    .play-pause {
+        width: 45px;
+        height: 45px;
+    }
+
+    .volume-control {
+        display: none; /* Hide volume control on mobile */
+    }
+}
+
+/* Playlist list styling */
+.music-list {
+    max-width: 900px;
+    margin: 1.25rem auto 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    align-items: start;
+}
+
+/* Classes de músicas removidas - não utilizadas */
+
+/* Seção ORGULHO TV */
+.orgulho-tv {
+    padding: 3rem 1rem;
+    background: linear-gradient(to bottom, #1a1a1a, #000);
+    color: white;
+    position: relative;
+}
+
+/* Estilo padrão do botão assistir ao vivo */
+.watch-live-btn {
+    background: var(--cor-destaque);
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.watch-live-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Ajustes específicos para mobile */
+@media (max-width: 768px) {
+    .watch-live-btn {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.6rem;
+        position: absolute;
+        right: 0.5rem;
+        top: 0.5rem;
+    }
+    
+    .badge-ao-vivo {
+        display: none !important;
+    }
+}
+.orgulho-tv::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+}
+
+.orgulho-tv h2 {
+    text-align: center;
+    color: var(--cor-destaque, #007bff);
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-family: var(--fonte-titulos);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.section-desc {
+    text-align: center;
+    color: #aaa;
+    margin-bottom: 3rem;
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.video-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 400px);
+    gap: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.video-container {
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    position: relative;
+    max-height: 70vh;
+}
+
+.video-container::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    pointer-events: none;
+}
+
+.video-player {
+    width: 100%;
+    aspect-ratio: 16/9;
+    position: relative;
+    background: #111;
+}
+
+.video-player iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.video-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #111, #000);
+    color: #888;
+    text-align: center;
+    padding: 2rem;
+}
+
+.video-placeholder p {
+    font-size: 1.2rem;
+    margin: 1rem 0 0.5rem;
+    color: #fff;
+}
+
+.video-placeholder small {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+.placeholder-logo {
+    width: 120px;
+    height: auto;
+    margin-bottom: 1rem;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.placeholder-logo:hover {
+    opacity: 1;
+}
+
+.proximas-lives {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.proximas-lives h3 {
+    color: var(--cor-destaque);
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+    font-family: var(--fonte-titulos);
+    letter-spacing: 0.5px;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.proximas-lives h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: var(--cor-destaque);
+}
+
+#lista-lives {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+#lista-lives::-webkit-scrollbar {
+    width: 6px;
+}
+
+#lista-lives::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.05);
+    border-radius: 3px;
+}
+
+#lista-lives::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+}
+
+.live-item {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.live-item:hover {
+    background: rgba(0, 0, 0, 0.5);
+    transform: translateX(5px);
+    border-color: rgba(255,255,255,0.1);
+}
+
+.live-item h4 {
+    color: white;
+    margin-bottom: 0.5rem;
+    font-family: var(--fonte-titulos);
+}
+
+.live-item .live-info {
+    font-size: 0.9rem;
+    color: #aaa;
+    line-height: 1.4;
+}
+
+.live-item.active {
+    background: var(--cor-destaque);
+}
+
+.live-item.active .live-info {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Chat styles */
+.msg {
+    max-width: 75%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.msg.user {
+    align-self: flex-end;
+    background: #e6f0ff;
+    color: #0b2545;
+}
+
+.msg.assistant {
+    align-self: flex-start;
+    background: #f4f4f6;
+    color: #111;
+}
+
+/* Live modal / chat responsive styles */
+/* Removido estilos do player de vídeo e chat */
+/* place chat in the content row */
+.live-chat { grid-row: 2; grid-column: 2; position: relative; z-index: 2; }
+/* keep chat above video when necessary */
+.live-chat { position: relative; z-index: 2; }
+
+.live-chat-header {
+    padding: 0.6rem 0.9rem;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    background: linear-gradient(90deg, rgba(0,0,0,0.02), transparent);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-family: var(--fonte-titulos);
+    color: var(--cor-primaria);
+    letter-spacing: 0.3px;
+}
+
+.live-chat-messages {
+    padding: 1rem;
+    overflow-y: auto;
+    flex: 1;
+    background: #f8f9fa;
+    scroll-behavior: smooth;
+    min-height: 0;
+    max-height: calc(100vh - 200px);
+    font-family: var(--fonte-corpo);
+    font-size: 0.95rem;
+    color: var(--cor-texto);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.live-chat-messages .message,
+.live-chat-messages .msg {
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    max-width: 85%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    line-height: 1.4;
+    position: relative;
+}
+
+/* general wrapper style for message elements */
+.live-chat-messages > div {
+    margin: 0;
+    word-break: break-word;
+    animation: fadeIn 0.2s ease-out;
+}
+
+/* message variants */
+.live-msg { display: block; font-family: var(--fonte-corpo); }
+.live-msg-user { background: linear-gradient(180deg, rgba(9,78,159,0.06), rgba(9,78,159,0.10)); color: #05233d; margin-left: auto; margin-right: 0; border: 1px solid rgba(9,78,159,0.12); }
+.live-msg-other { background: #ffffff; color: #111; margin-left: 0; margin-right: auto; border: 1px solid rgba(0,0,0,0.04); }
+.live-msg-username { color: var(--cor-destaque); margin-right: 0.45rem; font-weight: 700; }
+.live-msg-text { color: inherit; }
+
+.msg-timestamp {
+    display: block;
+    font-size: 0.72rem;
+    color: rgba(0,0,0,0.45);
+    margin-top: 0.25rem;
+    text-align: right;
+    opacity: 0.95;
+}
+
+#modal-username-container {
+    padding: 0.45rem 0.6rem;
+    display: flex; /* keeps inline JS behavior */
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.modal-chat-container.live-chat {
+    border: 1px solid rgba(0,0,0,0.04);
+    overflow: hidden;
+}
+
+.live-chat-input {
+    padding: 0.5rem;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    display: flex;
+    gap: 0.5rem;
+    background: #fff;
+    align-items: center;
+    min-width: 0;
+}
+
+.live-chat-input input[type="text"] {
+    flex: 1;
+    min-width: 0;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    background: #f5f5f5;
+}
+
+.live-chat-input button {
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    background: var(--cor-destaque);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    flex: 0 0 auto;
+    transition: all 0.2s ease;
+}
+
+.live-chat-messages::-webkit-scrollbar { width: 8px; }
+.live-chat-messages::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 4px; }
+
+/* Estilos responsivos para tablet e mobile */
+@media (max-width: 900px) {
+    .live-modal-content {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 40vh auto;
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+        padding: 1rem;
+        gap: 1rem;
+    }
+    
+    .live-video { 
+        grid-row: 1;
+        grid-column: 1;
+        min-height: 0;
+        max-height: 40vh;
+        aspect-ratio: 16/9;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    
+    .live-chat { 
+        grid-row: 2;
+        grid-column: 1;
+        height: auto;
+        min-height: 300px;
+        max-height: calc(60vh - 2rem);
+        border-radius: 12px;
+        background: #fff;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .live-chat-messages { 
+        height: auto;
+        max-height: calc(60vh - 120px);
+        min-height: 200px;
+        padding: 1rem;
+        background: #f8f9fa;
+    }
+    /* ensure input is usable on tablet */
+    .live-chat-input { padding: 0.5rem 0.6rem; }
+    .live-chat-input input[type="text"] { font-size: 0.95rem; padding: 0.6rem 0.7rem; }
+    .live-chat-input button { font-size: 0.95rem; padding: 0.5rem 0.75rem; }
+    /* close button visible on tablet */
+    .live-modal-content > button { right: 12px; top: 12px; }
+}
+
+/* iPads e tablets em modo paisagem */
+@media only screen and (min-width: 768px) and (max-width: 1100px) and (orientation: landscape) {
+    .live-modal-content {
+        width: calc(100% - 60px);
+        max-width: 1000px;
+        margin: 16px auto;
+        grid-template-columns: 1fr 1fr !important; /* força duas colunas em paisagem */
+        grid-template-rows: auto 1fr;
+        gap: 1rem;
+        height: calc(100vh - 32px);
+        max-height: none;
+        height: calc(100vh - 40px);
+        max-height: calc(100vh - 40px);
+    }
+
+    .live-modal-title { font-size: 1.05rem; }
+
+    .live-video { grid-row: 2; min-height: 360px; max-height: 48vh; }
+
+    .live-chat { grid-row: 3; min-height: 240px; max-height: 40vh; }
+
+    .live-chat-messages { max-height: calc(40vh - 90px); padding: 0.6rem; }
+
+    .live-chat-input input[type="text"] { font-size: 0.95rem; padding: 0.6rem 0.75rem; }
+    .live-chat-input button { font-size: 0.92rem; padding: 0.5rem 0.75rem; }
+
+    /* Make sure chat sits above iframe on Surface Pro */
+    .live-chat { z-index: 100100; }
+    .live-video iframe { z-index: 1; }
+
+    /* slightly reduce message bubble size for landscape tablet */
+    .live-chat-messages > div { font-size: 0.92rem; padding: 0.5rem 0.65rem; }
+}
+
+/* Mobile: chat compacto com input visível */
+@media (max-width: 480px) {
+    /* Make modal content use almost full width with small margins on mobile */
+    .live-modal-content {
+        max-width: calc(100% - 16px);
+        margin: 8px auto;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        height: calc(100vh - 16px);
+        gap: 0.5rem;
+        padding: 0.25rem;
+    }
+
+    .live-modal-title { font-size: 1rem; padding: 0.4rem 0; }
+
+    /* Video full width on top */
+    .live-video { order: 0; min-height: 200px; max-height: 40vh; grid-column: 1; grid-row: 2; }
+
+    /* Chat stacked below video, occupy reasonable portion of screen */
+    .live-chat { order: 1; height: auto; grid-column: 1; grid-row: 3; min-height: 160px; max-height: 55vh; border-radius: 8px; }
+
+    .live-chat-messages { padding: 0.5rem; }
+
+    /* Make input and button larger for touch, but keep visual compactness */
+    .live-chat-input { padding: 0.6rem; gap: 0.5rem; }
+    .live-chat-input input[type="text"] { padding: 0.7rem 0.9rem; font-size: 1rem; }
+    .live-chat-input button { padding: 0.6rem 0.9rem; font-size: 1rem; border-radius: 8px; }
+
+    /* Ensure close button is visible on mobile (overrides inline styles) */
+    .live-modal-content > button {
+        right: 8px !important;
+        top: 8px !important;
+        left: auto !important;
+    }
+
+    /* Slightly larger touch targets for username controls */
+    #modal-username-container input,
+    #modal-username-container button { padding: 0.5rem 0.6rem; font-size: 0.95rem; }
+
+    /* Mobile-specific: stack video above chat and keep chat compact */
+    .live-modal-content {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        width: 100%;
+        height: 100vh;
+        padding: 0.5rem;
+        gap: 0.5rem;
+        box-sizing: border-box;
+    }
+
+    /* Video on top, fixed visible area to avoid huge black background */
+    .live-video {
+        order: 1;
+        width: 100%;
+        height: 34vh; /* reduce video height on small devices */
+        min-height: 180px;
+        max-height: 40vh;
+        border-radius: 10px;
+        overflow: hidden;
+        flex: 0 0 auto;
+    }
+
+    /* Chat sits below the video and uses remaining space */
+    .live-chat {
+        order: 2;
+        width: 100%;
+        flex: 1 1 auto;
+        min-height: 220px;
+        max-height: calc(66vh - 1rem);
+        border-radius: 10px;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    /* Chat messages area should scroll and keep bubbles compact */
+    .live-chat-messages {
+        padding: 0.6rem 0.75rem;
+        overflow-y: auto;
+        flex: 1 1 auto;
+        background: #f8f9fa;
+        max-height: calc(66vh - 120px);
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+    }
+
+    /* Make message bubbles smaller on mobile */
+    .live-chat-messages > div {
+        padding: 0.45rem 0.6rem;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        max-width: 92%;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    .live-msg-username { font-size: 0.86rem; }
+    .live-msg-text { font-size: 0.9rem; }
+
+    /* Compact input area: reduce bubble height and make it inline with button */
+    .live-chat-input {
+        padding: 0.35rem 0.5rem;
+        gap: 0.45rem;
+        border-top: 1px solid rgba(0,0,0,0.05);
+        background: #fff;
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+    }
+
+    .live-chat-input input[type="text"] {
+        box-sizing: border-box;
+        height: 36px;
+        line-height: 1.1;
+        padding: 0.35rem 0.6rem;
+        border-radius: 18px; /* smaller rounded bubble */
+        border: 1px solid rgba(0,0,0,0.08);
+        background: #fafafa;
+        flex: 1 1 auto;
+        min-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .live-chat-input button {
+        padding: 0.35rem 0.7rem;
+        height: 36px;
+        border-radius: 12px;
+        font-size: 0.92rem;
+        flex: 0 0 auto;
+    }
+
+}
+
+/* Ensure modal aligns to top on very small viewports so content stacks from top (override inline styles) */
+@media (max-width: 480px) {
+    #liveModal {
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+        padding-top: 12px !important;
+    }
+
+    /* Force video above chat and avoid overlap */
+    .live-video { position: relative; z-index: 2; }
+    .live-chat { position: relative; z-index: 1; margin-top: 0; }
+}
+
+/* Extra safety for very small phones (narrower than typical small devices) */
+@media (max-width: 360px) {
+    .live-chat-input {
+        padding: 0.35rem 0.5rem 0.35rem 0.25rem;
+        gap: 0.35rem;
+    }
+
+    .live-chat-input input[type="text"] {
+        padding: 0.5rem 0.6rem;
+        font-size: 0.95rem;
+        height: 36px;
+    }
+
+    .live-chat-input button {
+        padding: 0.45rem 0.55rem;
+        font-size: 0.9rem;
+        margin-right: 0.15rem;
+    }
+
+    /* Ensure the chat area adds some bottom inset for devices with software buttons / safe area */
+    .live-chat {
+        padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 6px);
+    }
+}
+
+/* Always ensure flex children can shrink properly (helps many mobile browsers) */
+.live-chat-input > * { min-width: 0; }
+
+/* iOS safe-area support for chat input so on iPhone X/11/12/13/14 the input isn't hidden */
+.live-chat-input { padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 8px); }
+
+/* Responsividade para ORGULHO TV */
+@media (max-width: 1200px) {
+    .video-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .chat-container {
+        height: 400px !important;
+    }
+}
+:root {
+    --brand-blue: #0046ad;  /* Azul principal */
+    --brand-red: #ff3838;   /* Vermelho destaque */
+    --brand-yellow: #ffd633; /* Amarelo destaque */
+
+    --cor-primaria: var(--brand-blue); /* menus, títulos, botões */
+    --cor-secundaria: var(--brand-yellow); /* botões de ação */
+    --cor-destaque: var(--brand-red);
+
+    /* Sistema tipográfico */
+    --fonte-titulos: 'Baloo 2', system-ui, sans-serif;
+    --fonte-corpo: 'Inter', system-ui, sans-serif;
+    --tamanho-h1: 3rem;
+    --tamanho-h2: 2.25rem;
+    --tamanho-h3: 1.5rem;
+    --tamanho-texto: 1rem;
+    --peso-titulo: 700;
+    --peso-subtitulo: 600;
+    --peso-normal: 400;
+    
+    --cor-texto: #222;
+    --cor-fundo: #ffffff; /* fundo limpo */
+    --cor-fundo-alt: #fbfbfd; /* seções suaves */
+    --cor-borda: #e6e9f0;
+    --sombra-card: 0 6px 18px rgba(3,10,30,0.08);
+    --hero-gradient: linear-gradient(to bottom right, #1d5fd1, #8cb7ff);
+    --brand-blue-light: #9fc9ff;
+    --sombra-suave: 0 4px 12px rgba(0,0,0,0.1);
+    --transicao-padrao: all 0.3s ease;
+    --menu-hover-bg: rgba(255, 214, 51, 0.15);
+}
+
+/* Animações */
+@keyframes fadeInZoom {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes menuLineUp {
+    0% {
+        width: 0;
+        bottom: -2px;
+    }
+    100% {
+        width: 100%;
+        bottom: -2px;
+    }
+}
+ 
+/* Reset e estilos globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Sistema tipográfico */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--fonte-titulos);
+    font-weight: var(--peso-titulo);
+    line-height: 1.2;
+    margin-bottom: 0.5em;
+}
+
+h1 {
+    font-size: var(--tamanho-h1);
+    letter-spacing: -0.02em;
+    color: #dc2743;
+}
+
+h2 {
+    font-size: var(--tamanho-h2);
+    color: var(--cor-primaria);
+}
+
+h3 {
+    font-size: var(--tamanho-h3);
+    font-weight: var(--peso-subtitulo);
+}
+
+p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+}
+
+/* Removido classe destaque não utilizada */
+
+/* Responsividade da tipografia */
+@media (max-width: 768px) {
+    :root {
+        --tamanho-h1: 2.5rem;
+        --tamanho-h2: 2rem;
+        --tamanho-h3: 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --tamanho-h1: 2rem;
+        --tamanho-h2: 1.75rem;
+        --tamanho-h3: 1.15rem;
+    }
+}
+
+/* Container principal */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 16px;
+    width: 100%;
+}
+
+/* Seção de Apresentações */
+.apresentacoes {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    padding: 2rem;
+    margin: 2rem auto;
+    box-shadow: var(--sombra-suave);
+}
+
+.apresentacoes h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.lista-apresentacoes {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 2rem auto;
+}
+
+.card-apresentacao {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid var(--cor-borda);
+    transition: var(--transicao-padrao);
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    align-items: start;
+}
+
+.card-apresentacao:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.card-apresentacao .data {
+    color: var(--cor-primaria);
+    font-family: var(--fonte-titulos);
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-apresentacao .local {
+    color: var(--cor-texto);
+    margin-bottom: 0.5rem;
+}
+
+.card-apresentacao .horario {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+/* Badge "Ao Vivo" */
+.badge-ao-vivo {
+    position: absolute;
+    top: 0;
+    right: 1rem;
+    background: var(--cor-destaque);
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 0 0 8px 8px;
+    font-family: var(--fonte-titulos);
+    font-weight: 600;
+    font-size: 0.9rem;
+    animation: pulseLight 2s infinite;
+}
+
+/* Indicador pulsante para "Ao Vivo" */
+@keyframes pulseLight {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Status das apresentações */
+/* Removido classes de status não utilizadas */
+
+/* Estilos do Formulário e Cards Admin */
+.admin-form {
+    max-width: 900px;
+    margin: 0 auto 2rem;
+    padding: 2rem;
+    background: white;
+    box-shadow: var(--sombra-suave);
+    border-radius: 16px;
+    border: 1px solid var(--cor-borda);
+}
+
+/* Estilos dos cartões e controles */
+.card-apresentacao .content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.card-apresentacao .controls {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    margin-left: auto;
+}
+
+/* Public (visitante) view: left-aligned content */
+.card-apresentacao.public {
+    grid-template-columns: 1fr;
+    justify-items: start;
+    padding-left: 1.5rem;
+}
+
+.card-apresentacao.public .content {
+    width: auto;
+    max-width: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    margin-left: 0;
+}
+
+.card-apresentacao.public .data,
+.card-apresentacao.public .local,
+.card-apresentacao.public .horario {
+    align-self: flex-start;
+}
+
+/* Slightly reduce vertical padding and increase gap for a neater admin layout */
+.card-apresentacao.admin {
+    padding: 1.25rem;
+    gap: 1rem;
+}
+
+/* Make the horario text a little lighter for balance */
+/* Classes de apresentação removidas - não utilizadas */
+
+/* Botões de ação */
+.btn-small {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    border: 1px solid var(--cor-borda);
+    background: white;
+    color: #555;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-small:hover {
+    background: #f5f5f5;
+    border-color: #ccc;
+}
+
+.btn-small i {
+    font-size: 0.9em;
+}
+
+.btn-edit {
+    color: var(--cor-primaria);
+    border-color: var(--cor-primaria);
+}
+
+.btn-edit:hover {
+    background: var(--cor-primaria);
+    color: white;
+}
+
+.btn-remove {
+    color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-remove:hover {
+    background: #dc3545;
+    color: white;
+}
+
+/* Badge Ao Vivo */
+.badge-ao-vivo {
+    background: #dc3545;
+    color: white;
+    padding: 0.35rem 0.8rem;
+    border-radius: 0 0 8px 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    position: absolute;
+    top: 0;
+    right: 2rem;
+    animation: pulseLight 2s infinite;
+    box-shadow: 0 2px 4px rgba(220,53,69,0.2);
+}
+
+.form-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+    min-width: 200px;
+}
+
+.form-group label {
+    font-weight: 500;
+    color: var(--cor-texto);
+}
+
+.form-group input {
+    padding: 0.8rem;
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.form-group input:focus {
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 0 2px rgba(0,70,173,0.1);
+    outline: none;
+}
+
+.form-group small {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.form-actions button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.form-help {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--cor-borda);
+    color: #666;
+}
+
+.form-help p {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+}
+
+.form-help ul {
+    list-style: none;
+    padding-left: 1.5rem;
+}
+
+.form-help li {
+    position: relative;
+    margin-bottom: 0.5rem;
+}
+
+.form-help li:before {
+    content: "•";
+    position: absolute;
+    left: -1rem;
+    color: var(--cor-primaria);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 12px;
+    }
+    
+    .hero-logo {
+        width: 90%;
+        margin-top: -60px;
+    }
+    
+    .carousel-slide {
+        flex: 0 0 50%;
+        min-width: 50%;
+    }
+    
+    .music-button {
+        bottom: 16px;
+        right: 16px;
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+
+    .apresentacoes {
+        padding: 1.5rem;
+        margin: 1.5rem auto;
+    }
+
+    .lista-apresentacoes {
+        gap: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 8px;
+    }
+    
+    .hero-logo {
+        width: 95%;
+        margin-top: -40px;
+    }
+    
+    .carousel-slide {
+        flex: 0 0 100%;
+        min-width: 100%;
+    }
+    
+    .music-button {
+        bottom: 12px;
+        right: 12px;
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+
+    .apresentacoes {
+        padding: 1rem;
+        margin: 1rem auto;
+    }
+
+    .lista-apresentacoes {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .card-apresentacao {
+        padding: 1rem;
+    }
+}
+
+.apresentacoes {
+    padding: 1rem;
+    margin: 1rem auto;
+}
+
+.lista-apresentacoes {
+    grid-template-columns: 1fr;
+}
+
+.card-apresentacao {
+    padding: 1rem;
+}
+
+.badge-ao-vivo {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.8rem;
+}
+
+/* Header e Footer Padrão */
+.main-header {
+    background: var(--cor-primaria);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--sombra-suave);
+}
+
+.main-nav {
+    background: var(--cor-primaria);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-family: var(--fonte-titulos);
+    font-weight: 500;
+    position: relative;
+    padding: 0.5rem 0;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: var(--cor-secundaria);
+    left: 0;
+    bottom: -2px;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a.active {
+    font-weight: 600;
+}
+
+.nav-links a.active::after {
+    width: 100%;
+}
+
+.main-footer {
+    background: var(--cor-primaria);
+    color: white;
+    padding: 3rem 0 2rem;
+    margin-top: 4rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.footer-section h3 {
+    color: var(--cor-secundaria);
+    margin-bottom: 1rem;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--cor-secundaria);
+}
+
+.footer-social {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.footer-social a {
+    color: white;
+    font-size: 1.5rem;
+}
+
+.footer-bottom {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    text-align: center;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.7);
+}
+
+/* Mobile Menu */
+.mobile-menu {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .mobile-menu {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--cor-primaria);
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .footer-social {
+        justify-content: center;
+    }
+}
+
+/* Estilos base para elementos interativos */
+a, button, .btn {
+    transition: var(--transicao-padrao);
+}
+
+.btn, button {
+    box-shadow: var(--sombra-suave);
+    border-radius: 8px;
+}
+
+/* Ajustes Formulário */
+.form-group input {
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    font-size: 1rem;
+    width: 100%;
+    background: #fff;
+    transition: all 0.2s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 0 3px rgba(0,70,173,0.1);
+}
+
+.form-group label {
+    font-weight: 500;
+    color: #444;
+    margin-bottom: 0.3rem;
+}
+
+.form-actions {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--cor-borda);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-primary {
+    background: var(--cor-primaria);
+    color: white;
+    padding: 1rem 1.75rem; /* slightly larger */
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.btn-primary:hover {
+    background: #0052cc;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,70,173,0.2);
+}
+
+.btn-primary i {
+    font-size: 0.9em;
+}
+
+/* Styles for the Seletiva form select to match inputs and button sizing */
+.subscription-form .form-group select,
+.subscription-form .form-group select:focus {
+    width: 100%;
+    padding: 0.65rem 0.8rem;
+    border: 1px solid var(--cor-borda);
+    border-radius: 6px;
+    font-size: 0.98rem;
+    background: #fff;
+    box-shadow: none;
+    outline: none;
+}
+
+.subscription-form .form-group select:focus {
+    border-color: var(--cor-primaria);
+    box-shadow: 0 4px 12px rgba(0,70,173,0.08);
+}
+
+/* Botão de música */
+.music-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--cor-secundaria);
+    border: none;
+    color: var(--cor-primaria);
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: var(--sombra-suave);
+    transition: var(--transicao-padrao);
+    animation: pulse 2s infinite;
+    z-index: 1000;
+}
+
+.music-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+.music-button[title] {
+    position: relative;
+}
+
+.music-button[title]::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transicao-padrao);
+}
+
+.music-button:hover[title]::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-8px);
+}
+
+.btn:hover, button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.card, .content-box {
+    border-radius: 12px;
+    box-shadow: var(--sombra-suave);
+    transition: var(--transicao-padrao);
+}
+
+.card:hover, .content-box:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    transform: translateY(-3px);
+}
+
+body {
+    font-family: var(--fonte-corpo);
+    line-height: 1.6;
+    color: var(--cor-texto);
+    font-weight: var(--peso-normal);
+    /* Gradiente suave atualizado */
+    background: var(--hero-gradient);
+    background-attachment: fixed;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Navegação */
+.main-nav {
+    /* Header fixo e moderno */
+    background: #0057d9; /* cor solicitada */
+    padding: 1.0rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 6px 22px rgba(0,0,0,0.16);
+    backdrop-filter: saturate(120%) blur(6px);
+    border-bottom: 4px solid #ffd700; /* linha dourada na parte inferior */
+}
+
+/* Footer social modernizado */
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem 2.5rem;
+}
+
+/* Helpers */
+/* Visually hidden but accessible text for screen readers */
+.sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+.footer-social {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 2rem;
+    padding: 2rem 1rem;
+    border-radius: 12px;
+}
+
+.footer-text {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.footer-text h3 {
+    margin: 0 0 1rem;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--brand-blue);
+    letter-spacing: -0.01em;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.footer-text .social-sub {
+    margin: 0.5rem 0 0;
+    color: rgba(0,0,0,0.75);
+    font-size: 1.1rem;
+    line-height: 1.5;
+}
+
+.social-icons {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+/* Classes de redes sociais removidas - não utilizadas */
+
+.footer-bottom {
+    width: 100%;
+    text-align: center;
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    margin: 0.5rem 0 2rem;
+}
+
+.footer-bottom p {
+    color: rgba(0,0,0,0.6);
+    font-size: 0.95rem;
+}
+
+/* Responsividade */
+@media (max-width: 800px) {
+    .footer-social {
+        gap: 1.5rem;
+        padding: 1.5rem 1rem;
+    }
+    .footer-text h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.75rem;
+    }
+    .footer-text .social-sub {
+        font-size: 1rem;
+    }
+    .social-icons { 
+        margin-top: 0.5rem;
+        gap: 1.25rem;
+    }
+    .social-link { width: 48px; height: 48px; border-radius: 10px; }
+    
+    .carousel-slide {
+        /* Em telas menores, mostra 2 slides por vez */
+        flex: 0 0 50%;
+        min-width: 50%;
+    }
+    
+    .slide-info {
+        /* Em mobile, sempre mostra a info */
+        transform: translateY(0);
+        padding: 15px;
+    }
+    
+    .slide-info h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    .slide-info p {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-content { padding: 1.25rem; }
+    .footer-social .social-left h3 { font-size: 1.05rem; }
+    .footer-social .social-left .social-sub { font-size: 0.9rem; }
+    
+    .carousel-slide {
+        /* Em telas muito pequenas, mostra 1 slide por vez */
+        flex: 0 0 100%;
+        min-width: 100%;
+    }
+    
+    .social-icons {
+        gap: 1rem;
+    }
+    
+    .social-link {
+        width: 42px;
+        height: 42px;
+    }
+    
+    /* Oculta botões de navegação em mobile */
+    .carousel-button {
+        display: none;
+    }
+}
+
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: center; /* centraliza melhor os links */
+    align-items: center;
+    gap: 2rem;
+}
+
+/* Logo: ajuste de tamanho e responsividade
+   - Coloque sua imagem em `images/logo.png` (ou ajuste o caminho em `index.html`)
+   - Altere os valores de altura abaixo para aumentar/diminuir a logo */
+.logo {
+    height: 100px;        /* altura padrão (desktop) - Aumentada para logo maior */
+    max-height: 1200px;    /* altura máxima */
+    width: auto;         /* mantém proporção */
+    display: block;
+    margin-right: 1rem;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+    align-items: center;
+    margin: 0 auto; /* tenta centralizar o bloco de links */
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    transition: background-color 0.3s;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: var(--transicao-padrao);
+    position: relative;
+    letter-spacing: 0.2px;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background-color: var(--cor-secundaria);
+    transition: var(--transicao-padrao);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    background-color: var(--menu-hover-bg);
+    color: var(--cor-secundaria);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* Underline dourado animado */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 1rem;
+    right: 1rem;
+    bottom: 0.3rem;
+    height: 2px;
+    background: var(--brand-yellow);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    border-radius: 1px;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    transform: scaleX(1);
+}
+
+/* Underline animado dourado */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -6px;
+    width: 60%;
+    height: 3px;
+    background: #ffd700;
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: center;
+    transition: transform 0.28s cubic-bezier(.2,.9,.2,1);
+    border-radius: 2px;
+    opacity: 0.95;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
+/* pequena borda colorida sob o menu já adicionada pelo elemento .nav-accent */
+
+.mobile-menu {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Conteúdo principal */
+main {
+    max-width: 1200px;
+    margin: 80px auto 0; /* Ajuste para o menu fixo */
+    padding: 2rem 1rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(0,0,0,0.1);
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    min-height: 72vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;    
+    background: var(--hero-gradient);
+    /* Textura sutil tipo bandeirinhas via gradientes repetidos (CSS-only) */
+    background-image:
+        linear-gradient(135deg, rgba(255,255,255,0.03) 25%, transparent 25%),
+        linear-gradient(225deg, rgba(255,255,255,0.03) 25%, transparent 25%),
+        linear-gradient(315deg, rgba(255,255,255,0.03) 25%, transparent 25%),
+        linear-gradient(45deg, rgba(255,255,255,0.03) 25%, transparent 25%);
+    background-size: 40px 40px;
+    background-repeat: repeat;
+    background-position: center;
+    color: #fff;
+    overflow: hidden;
+}
+
+.hero .inicio-conteudo {
+    max-width: 980px;
+    padding: 10px 20px;
+}
+
+.hero-logo {
+    display: block;
+    width: 800px;        /* Largura da logo principal - Aumentada */
+    max-width: 90%;      /* Porcentagem máxima da largura da tela - Aumentada 70%*/
+    height: auto;
+    margin: -100px auto 10px auto;
+    filter: drop-shadow(0 6px 14px rgba(0,0,0,0.18));
+    animation: fadeInZoom 0.8s ease-out;
+}
+
+.hero h1 {
+    color: #ffffff;
+    margin-bottom: 0.8rem;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    text-align: center;
+    text-shadow: 
+        0 2px 4px rgba(0,0,0,0.3),
+        0 8px 26px rgba(0,0,0,0.2);
+    animation: fadeInUp 1.2s ease-out;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.9) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: #e43131ad;;
+    background-clip: text;
+}
+
+.hero p {
+    font-style: italic;
+    color: var(--brand-blue-light); /* subtítulo em azul claro */
+    font-size: 1.15rem;
+    margin-bottom: 2rem;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    animation: fadeInUp 1.4s ease-out;
+}
+
+
+h2 {
+    color: var(--cor-primaria);
+    margin-bottom: 1.5rem;
+}
+
+/* Estilo aprimorado para títulos de seção (centralizado e com fonte mais marcante) */
+.highlights h2,
+.brincantes-carousel h2 {
+    text-align: center;
+    font-family: var(--fonte-titulos);
+    font-weight: 700;
+    font-size: clamp(1.25rem, 3.2vw, 2rem); /* responsivo */
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    text-shadow: 0 4px 18px rgba(0,0,0,0.08);
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--cor-primaria);
+}
+
+/* Se quiser o subtítulo abaixo do h2 mais discreto */
+.highlights p.subtle {
+    text-align: center;
+    color: rgba(0,0,0,0.65);
+    margin-top: 0.25rem;
+}
+
+/* Player de áudio */
+.radio-player {
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9ff 100%);
+    padding: 2rem;
+    border-radius: 20px;
+    text-align: center;
+    margin: 40px auto 0;
+    max-width: 620px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    animation: fadeInUp 1.6s ease-out;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(230,233,240,0.6);
+    backdrop-filter: blur(10px);
+}
+
+.radio-player:hover {
+    transform: translateY(-6px);
+}
+
+/* ícone ao lado do título do player */
+.radio-icon {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 1.25rem;
+    vertical-align: middle;
+    background: var(--cor-secundaria);
+    color: var(--cor-primaria);
+    padding: 6px 8px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* Destaques - grid e cards */
+/* Carrossel de Brincantes: caixa uniforme para todas as imagens */
+.brincantes-carousel {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    /* força uma proporção uniforme (16:9) e limita a altura máxima */
+    aspect-ratio: 16 / 9;
+    height: auto;
+    max-height: 600px;
+    /* Smooth shadow transition on container hover */
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.carousel-container:hover {
+    box-shadow: 0 16px 40px rgba(0,0,0,0.2);
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    height: 100%; /* garante que os slides ocupem toda a altura da caixa */
+}
+
+.carousel-slide {
+    /* Mostrar 4 slides ao mesmo tempo: cada slide ocupa 1/4 da largura do contêiner */
+    flex: 0 0 calc(100% / 4);
+    min-width: calc(100% / 4);
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.carousel-slide:hover {
+    transform: scale(1.02);
+    z-index: 1;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* cobre a caixa mantendo o centro */
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.carousel-slide:hover img {
+    transform: scale(1.1);
+}
+
+.slide-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    color: white;
+    transform: translateY(100%);
+    transition: transform 0.3s ease-out;
+}
+
+.carousel-slide:hover .slide-info {
+    transform: translateY(0);
+}
+
+.slide-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.slide-info p {
+    font-size: 1.1rem;
+    opacity: 0.95;
+}
+
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.85);
+    border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+/* Oculta botões em mobile */
+@media (max-width: 480px) {
+    .carousel-button {
+        display: none !important;
+    }
+}
+
+.carousel-button:hover {
+    background: white;
+    transform: translateY(-50%) scale(1.06);
+}
+
+.carousel-button.prev {
+    left: 18px;
+}
+
+.carousel-button.next {
+    right: 18px;
+}
+
+.carousel-indicators {
+    /*position: absolute;*/
+    bottom: -30px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 0;
+}
+
+.carousel-indicators button {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0,70,173,0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-indicators button.active {
+    background: var(--brand-blue);
+    transform: scale(1.2);
+}
+
+.player-container {
+    padding: 1rem;
+}
+
+.player-container audio {
+    width: 100%;
+    max-width: 500px;
+    margin: 1rem 0;
+}
+
+/* Galeria de fotos */
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+.photo-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.photo-item:hover {
+    transform: scale(1.03);
+}
+
+.photo-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Lista de músicas */
+.music-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.music-item {
+    background-color: var(--cor-fundo-alt);
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.music-item audio {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+/* Formulários */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--cor-texto);
+    font-weight: bold;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--cor-borda);
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--cor-primaria);
+}
+
+.btn-primary {
+    background-color: var(--cor-primaria);
+    color: white;
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: var(--cor-destaque);
+}
+
+/* Rodapé */
+footer {
+    background: linear-gradient(180deg, var(--cor-fundo-alt) 0%, #f0f2f8 100%);
+    padding: 4rem 0 3rem;
+    margin-top: 4rem;
+    border-top: 4px solid var(--brand-yellow);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    text-align: center;
+}
+
+.footer-social {
+    margin-bottom: 2.5rem;
+}
+
+.footer-social p {
+    color: var(--cor-primaria);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.75rem;
+    text-shadow: 0 2px 12px rgba(0,70,173,0.12);
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 2rem auto;
+    max-width: 400px;
+}
+
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    background: var(--cor-primaria);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.social-links a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, var(--brand-yellow), var(--brand-blue));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.social-links a:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.social-links a:hover::before {
+    opacity: 1;
+}
+
+.social-links a.youtube { background: #ff0000; }
+.social-links a.spotify { background: #1DB954; }
+.social-links a.instagram { 
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.footer-social p:last-child {
+    color: rgba(0,0,0,0.6);
+    font-size: 0.95rem;
+    font-weight: normal;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Responsividade do Footer */
+@media (max-width: 768px) {
+    footer {
+        padding: 3rem 0 2rem;
+    }
+    
+    .footer-social p {
+        font-size: 1.25rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .social-links {
+        gap: 1.25rem;
+        margin: 1.5rem auto;
+    }
+    
+    .social-links a {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-content {
+        padding: 0 1rem;
+    }
+    
+    .footer-social p {
+        font-size: 1.15rem;
+        margin-bottom: 1.25rem;
+    }
+    
+    .social-links {
+        gap: 1rem;
+    }
+    
+    .social-links a {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+    }
+    
+    .footer-social p:last-child {
+        font-size: 0.9rem;
+        margin-top: 1.5rem;
+        padding-top: 1.25rem;
+    }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: var(--cor-primaria);
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    /* Logo em telas pequenas */
+    .logo {
+        height: 60px;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .mobile-menu {
+        display: block;
+        padding: 0.5rem;
+        font-size: 1.5rem;
+        color: var(--brand-yellow);
+    }
+
+    .contact-forms {
+        flex-direction: column;
+    }
+
+    section {
+        padding: 1.25rem;
+    }
+
+    .hero {
+        min-height: 60vh;
+        padding: 40px 18px;
+        background-attachment: fixed;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+}
+
+/* Animações */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Botão de tocar música - canto inferior direito, pequeno e circular */
+#playMusicButton {
+    position: fixed;
+    bottom: max(20px, env(safe-area-inset-bottom, 20px));
+    right: 20px;
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #FFE066 0%, var(--brand-yellow) 100%);
+    color: var(--brand-blue);
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 
+        0 2px 12px rgba(0,0,0,0.1),
+        0 0 18px rgba(255,214,51,0.25);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2147483647 !important;
+    pointer-events: auto;
+    will-change: transform, opacity;
+    font-weight: 600;
+    font-size: 16px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+#playMusicButton:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 
+        0 4px 20px rgba(0,0,0,0.15),
+        0 0 30px rgba(255,214,51,0.35);
+    background: linear-gradient(135deg, #FFE066 15%, var(--brand-yellow) 85%);
+}
+
+#playMusicButton:active {
+    transform: translateY(0) scale(0.98);
+}
+
+#playMusicButton .btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    line-height: 1;
+    transition: transform 0.3s ease;
+}
+
+#playMusicButton .btn-label {
+    display: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--brand-blue);
+    margin-left: 4px;
+    letter-spacing: 0.2px;
+}
+
+/* Mostra label em telas maiores */
+@media (min-width: 768px) {
+    #playMusicButton {
+        width: auto;
+        height: 44px;
+        padding: 0 16px;
+        border-radius: 999px;
+        bottom: 24px;
+        right: 24px;
+    }
+    #playMusicButton .btn-label {
+        display: inline-block;
+    }
+    #playMusicButton:hover .btn-icon {
+        transform: rotate(15deg);
+    }
+}
+
+/* Pulso leve quando está tocando */
+.playing {
+    animation: musicPulse 2s infinite ease-in-out;
+}
+
+@keyframes musicPulse {
+    0% { transform: scale(1); box-shadow: 0 2px 12px rgba(0,0,0,0.1), 0 0 18px rgba(255,214,51,0.25); }
+    50% { transform: scale(1.04); box-shadow: 0 4px 20px rgba(0,0,0,0.15), 0 0 30px rgba(255,214,51,0.4); }
+    100% { transform: scale(1); box-shadow: 0 2px 12px rgba(0,0,0,0.1), 0 0 18px rgba(255,214,51,0.25); }
+}
+
+footer {
+    background-color: var(--brand-blue);
+    color: #fff;
+    padding: 3rem 0;
+    margin-top: 4rem;
+    position: relative;
+    border-top: 3px solid var(--brand-yellow);
+    position: relative;
+}
+
+footer a.social-icon {
+    color: #fff;
+    transition: color 0.25s ease;
+}
+
+footer a.social-icon:hover {
+    color: var(--brand-yellow);
+}
+
+/* Classes de animação */
+.fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* Mantenha animações originais */
+.photo-item, .music-item {
+    animation: fadeIn 0.5s ease-out forwards;
+}

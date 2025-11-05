@@ -1,0 +1,15 @@
+node_modules/
+.env
+.env.local
+npm-debug.log
+.DS_Store
+.vscode/
+dist/
+build/
+coverage/
+.idea/
+
+# Local data files (kept out of repo)
+Frontend/inscricoes.json
+Frontend/contatos.json
+Frontend/contratacoes.json

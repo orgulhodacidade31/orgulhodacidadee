@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin - Inscrições</title>
+  <style>
+    body{font-family:Inter,Arial,sans-serif;margin:0;background:#f7f8fb;color:#111}
+    header{background:#0b3a91;color:#fff;padding:0.75rem 1rem;display:flex;align-items:center;justify-content:space-between}
+    header h1{font-size:1rem;margin:0}
+    .wrap{max-width:1200px;margin:1rem auto;padding:1rem}
+    .row{display:flex;gap:1rem;flex-wrap:wrap}
+    .card{background:#fff;border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,0.06);padding:1rem;flex:1;min-width:300px}
+    table{width:100%;border-collapse:collapse;font-size:0.9rem}
+    th,td{padding:0.45rem;border-bottom:1px solid #eee;text-align:left}
+    .controls{display:flex;gap:0.5rem}
+    button{background:#0046ad;color:#fff;border:none;padding:0.45rem 0.6rem;border-radius:6px;cursor:pointer}
+    .logout{background:#c33}
+    pre{white-space:pre-wrap;word-break:break-word}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Painel Administrativo</h1>
+    <div class="controls">
+      <button id="btnIns">Carregar Inscrições</button>
+      <button id="btnCont">Carregar Contatos</button>
+      <button id="btnConr">Carregar Contratações</button>
+                <button id="btnClearCtt">Limpar Contatos</button>
+      <button id="btnLogout" class="logout">Sair</button>
+    </div>
+  </header>
+  <div class="wrap">
+    <div id="content"></div>
+  </div>
+
+  <script>
+    const contentEl = document.getElementById('content');
+    async function fetchJson(url){
+      const r = await fetch(url, { credentials: 'include' });
+      if (!r.ok) throw new Error('Falha ao carregar');
+      return r.json();
+    }
+
+      // render inscrições with a chart by tipo_participacao
+      function renderInscricoes(arr){
+        if (!Array.isArray(arr) || arr.length === 0) {
+          contentEl.innerHTML = `<div class="card"><h3>Inscrições</h3><p>Nenhum registro encontrado.</p></div>`;
+          return;
+        }
+
+        // preserve original indices so deletes map to file order
+        const withIndex = arr.map((v, i) => Object.assign({}, v, { _origIndex: i }));
+
+        // sort by receivedAt (timestamp) desc
+        const sorted = withIndex.slice().sort((a, b) => (b.receivedAt || 0) - (a.receivedAt || 0));
+
+        // count types for chart
+        const counts = {};
+        sorted.forEach(item => {
+          const t = (item.tipo_participacao || 'Outros').toString();
+          counts[t] = (counts[t] || 0) + 1;
+        });
+
+        // build html with canvas for chart and a table below
+        let html = `<div class="card">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+            <h3>Inscrições por Tipo</h3>
+            <button id="btnRelatorio" style="background:#0046ad">📋 Gerar Relatório</button>
+          </div>
+          <div style="height:120px"><canvas id="insChart"></canvas></div><hr>`;
+
+        // Build table headers: Recebido + all keys (except receivedAt/_origIndex) + Ações
+        const keys = new Set();
+        withIndex.forEach(v => Object.keys(v).forEach(k => keys.add(k)));
+        keys.delete('receivedAt'); keys.delete('_origIndex');
+        const otherKeys = Array.from(keys);
+
+        html += `<table><thead><tr><th>Recebido</th>`;
+        otherKeys.forEach(h=> html += `<th>${h}</th>`);
+        html += `<th>Ações</th></tr></thead><tbody>`;
+
+        sorted.forEach(item => {
+          html += '<tr>';
+          // recebido column (human readable)
+          const ts = item.receivedAt ? new Date(Number(item.receivedAt)) : null;
+          html += `<td><pre>${ts ? ts.toLocaleString() : ''}</pre></td>`;
+          otherKeys.forEach(h=>{
+            let v = item[h];
+            if (v === undefined) v = '';
+            if (typeof v === 'object') v = JSON.stringify(v);
+            html += `<td><pre>${String(v)}</pre></td>`;
+          });
+          // actions: delete button uses original index so backend delete works
+          html += `<td><button data-idx="${item._origIndex}" class="delIns" style="background:#dc2626">🗑️ Excluir</button></td>`;
+          html += '</tr>';
+        });
+        html += `</tbody></table></div>`;
+        contentEl.innerHTML = html;
+
+        // attach delete handlers for each inscription
+        // Botão de relatório
+        document.getElementById('btnRelatorio').addEventListener('click', () => {
+          window.open('/relatorio-inscricoes.html', '_blank');
+        });
+
+        // Botões de excluir
+        document.querySelectorAll('.delIns').forEach(btn => btn.addEventListener('click', async (e) => {
+          const idx = Number(e.currentTarget.getAttribute('data-idx'));
+          const row = e.currentTarget.closest('tr');
+          const nome = row.querySelector('td:nth-child(2) pre') ? row.querySelector('td:nth-child(2) pre').textContent : '';
+
+          if (!confirm(`⚠️ ATENÇÃO!\n\nVocê está prestes a EXCLUIR esta inscrição:\n${nome}\n\nEsta ação não pode ser desfeita. Deseja continuar?`)) {
+            alert('❌ Operação cancelada!');
+            return;
+          }
+
+          const confirmText = prompt('⚠️ Última chance!\n\nPara confirmar a exclusão, digite CONFIRMAR (maiúsculas):');
+          const userInput = (confirmText || '').trim().toUpperCase();
+          if (userInput !== 'CONFIRMAR') {
+            alert('❌ Operação cancelada! Texto não corresponde a "CONFIRMAR".');
+            return;
+          }
+
+          try {
+            const r = await fetch('/api/admin/inscricoes/delete', {
+              method: 'POST',
+              credentials: 'include',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ index: idx })
+            });
+            if (!r.ok) {
+              // try to get error details from response
+              let details = '';
+              try { const data = await r.json(); details = data && (data.error || JSON.stringify(data)); } catch(e) { try { details = await r.text(); } catch(_) { details = ''; } }
+              console.error('Erro ao excluir inscrição', r.status, details);
+              // give helpful message to the admin (401 => not authenticated)
+              if (r.status === 401) throw new Error('Não autorizado. Faça login novamente.');
+              throw new Error((details && details.toString()) || ('Status ' + r.status));
+            }
+            alert('✅ Inscrição excluída com sucesso');
+            document.getElementById('btnIns').click();
+          } catch (err) {
+            console.error(err);
+            alert('❌ Erro ao excluir inscrição!\n\n' + err.message + '\n\nVerifique o console do servidor para mais detalhes.');
+          }
+        }));
+
+        // load Chart.js from CDN if not present
+        (function renderChart(){
+          const labels = Object.keys(counts);
+          const data = labels.map(l => counts[l]);
+          function onceLoaded(){
+            try{
+              const ctx = document.getElementById('insChart').getContext('2d');
+              // eslint-disable-next-line no-undef
+              new Chart(ctx, {
+                type: 'bar',
+                data: {
+                  labels,
+                  datasets: [{
+                    label: 'Quantidade',
+                    data,
+                    backgroundColor: ['#0b5cff','#ff7a00','#00b37a','#7a3cff']
+                  }]
+                },
+                options: {
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: {
+                    title: { display: false },
+                    legend: { display: false },
+                    tooltip: { enabled: true }
+                  },
+                  scales: {
+                    y: {
+                      beginAtZero: true,
+                      ticks: { stepSize: 1 }
+                    }
+                  }
+                }
+              });
+            }catch(e){ console.error('Erro ao renderizar gráfico', e); }
+          }
+          if (window.Chart) return onceLoaded();
+          const s = document.createElement('script');
+          s.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js';
+          s.onload = onceLoaded; s.onerror = ()=>console.warn('Não foi possível carregar Chart.js');
+          document.head.appendChild(s);
+        })();
+      }
+
+      function renderContatos(arr){
+        if (!Array.isArray(arr) || arr.length === 0) {
+          contentEl.innerHTML = `<div class="card">
+            <h3>Lista de Contatos</h3>
+            <p style="color:#666">Nenhum contato registrado no momento.</p>
+          </div>`;
+          return;
+        }
+        const keys = new Set();
+        arr.forEach(v => Object.keys(v).forEach(k => keys.add(k)));
+        const head = Array.from(keys);
+        let html = `<div class="card">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+            <h3>Lista de Contatos (${arr.length} ${arr.length === 1 ? 'registro' : 'registros'})</h3>
+            <button id="clearContBtn" style="background:#dc2626">
+              🗑️ Limpar todos os contatos
+            </button>
+          </div>
+          <table><thead><tr>`;
+        head.forEach(h=> html += `<th>${h}</th>`);
+        html += `</tr></thead><tbody>`;
+        arr.forEach(item => {
+          html += '<tr>';
+          head.forEach(h=>{
+            let v = item[h];
+            if (v === undefined) v = '';
+            if (typeof v === 'object') v = JSON.stringify(v);
+            html += `<td><pre>${String(v)}</pre></td>`;
+          });
+          html += '</tr>';
+        });
+        html += `</tbody></table></div>`;
+        contentEl.innerHTML = html;
+        document.getElementById('clearContBtn').addEventListener('click', async ()=>{
+          const total = arr.length;
+          const msg = `⚠️ ATENÇÃO! Operação Destrutiva!\n\n`
+            + `Você está prestes a APAGAR TODOS OS ${total} ${total === 1 ? 'CONTATO' : 'CONTATOS'}!\n\n`
+            + `Esta ação:\n`
+            + `- Não pode ser desfeita\n`
+            + `- Apagará PERMANENTEMENTE todos os contatos\n`
+            + `- Não há backup automático\n\n`
+            + `Quantidade de registros: ${total}\n\n`
+            + `Tem certeza absoluta que deseja continuar?`;
+          
+          if (!confirm(msg)) return;
+          
+          const confirmText = prompt(
+            '⚠️ Última chance!\n\n'
+            + 'Para confirmar a exclusão, digite CONFIRMAR em maiúsculas:'
+          );
+          if (confirmText !== 'CONFIRMAR') {
+            alert('❌ Operação cancelada!\nNenhum contato foi removido.');
+            return;
+          }
+          
+          try{
+            const r = await fetch('/api/admin/contatos/clear', { method: 'POST', credentials: 'include' });
+            if (!r.ok) throw new Error('Falha ao limpar os contatos');
+            alert(`✅ Sucesso!\n\n${total} ${total === 1 ? 'contato foi removido' : 'contatos foram removidos'} com sucesso.`);
+            document.getElementById('btnCont').click();
+          }catch(e){ 
+            alert('❌ Erro ao limpar contatos!\n\n' + e.message + '\n\nNenhum contato foi removido.'); 
+          }
+        });
+      }
+
+      function renderContratacoes(arr){
+        if (!Array.isArray(arr) || arr.length === 0) {
+          contentEl.innerHTML = `<div class="card">
+            <h3>Lista de Contratações</h3>
+            <p style="color:#666">Nenhuma contratação registrada no momento.</p>
+          </div>`;
+          return;
+        }
+        const keys = new Set();
+        arr.forEach(v => Object.keys(v).forEach(k => keys.add(k)));
+        const head = Array.from(keys);
+        // add actions column
+        let html = `<div class="card">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+            <h3>Lista de Contratações (${arr.length} ${arr.length === 1 ? 'registro' : 'registros'})</h3>
+          </div>
+          <table><thead><tr>`;
+        head.forEach(h=> html += `<th>${h}</th>`);
+        html += `<th>Ações</th></tr></thead><tbody>`;
+        arr.forEach((item, idx) => {
+          html += '<tr>';
+          head.forEach(h=>{
+            let v = item[h];
+            if (v === undefined) v = '';
+            if (typeof v === 'object') v = JSON.stringify(v);
+            html += `<td><pre>${String(v)}</pre></td>`;
+          });
+          html += `<td><button data-idx="${idx}" class="delContr" style="background:#dc2626">🗑️ Excluir</button></td>`;
+          html += '</tr>';
+        });
+        html += `</tbody></table></div>`;
+        contentEl.innerHTML = html;
+        document.querySelectorAll('.delContr').forEach(btn=> btn.addEventListener('click', async (e)=>{
+          const idx = Number(e.currentTarget.getAttribute('data-idx'));
+          const row = e.currentTarget.closest('tr');
+          const nome = row.querySelector('td:first-child pre').textContent;
+          
+          // Primeiro alerta com detalhes
+          if (!confirm(`⚠️ ATENÇÃO!\n\nVocê está prestes a EXCLUIR a contratação de:\n${nome}\n\nEsta ação:\n- Não pode ser desfeita\n- Apagará permanentemente este registro\n\nTem certeza que deseja continuar?`)) {
+            alert('❌ Operação cancelada!\nA contratação não foi excluída.');
+            return;
+          }
+
+          // Solicita digitação de CONFIRMAR
+          const confirmText = prompt(
+            '⚠️ Última chance!\n\n'
+            + 'Para confirmar a exclusão, digite CONFIRMAR\n'
+            + '(exatamente como mostrado, em maiúsculas):'
+          );
+          
+          // Remove espaços e verifica se digitou exatamente CONFIRMAR
+          const userInput = (confirmText || '').trim().toUpperCase();
+          if (userInput !== 'CONFIRMAR') {
+            alert('❌ Operação cancelada!\nA contratação não foi excluída.\n\n'
+              + 'Motivo: O texto digitado não corresponde a "CONFIRMAR".');
+            return;
+          }
+
+          try{
+            const r = await fetch('/api/admin/contratacoes/delete', { 
+              method: 'POST', 
+              credentials: 'include', 
+              headers: {'Content-Type':'application/json'}, 
+              body: JSON.stringify({ index: idx }) 
+            });
+            if (!r.ok) throw new Error('Falha ao excluir a contratação');
+            alert('✅ Contratação excluída com sucesso');
+            document.getElementById('btnConr').click();
+          }catch(er){ 
+            alert('❌ Erro ao excluir contratação!\n\n' + er.message); 
+          }
+        }));
+      }
+
+    // Botões de carregar dados
+    document.getElementById('btnIns').addEventListener('click', async ()=> {
+      try{ const data = await fetchJson('/api/admin/inscricoes'); renderInscricoes(data); }
+      catch(e){ alert('❌ Erro ao carregar inscrições: ' + e.message); }
+    });
+
+    document.getElementById('btnCont').addEventListener('click', async ()=> {
+      try{ const data = await fetchJson('/api/admin/contatos'); renderContatos(data); }
+      catch(e){ alert('❌ Erro ao carregar contatos: ' + e.message); }
+    });
+
+    document.getElementById('btnConr').addEventListener('click', async ()=> {
+      try{ const data = await fetchJson('/api/admin/contratacoes'); renderContratacoes(data); }
+      catch(e){ alert('❌ Erro ao carregar contratações: ' + e.message); }
+    });
+
+    // Botão de limpar contatos
+    document.getElementById('btnClearCtt').addEventListener('click', async ()=> {
+      try {
+        const data = await fetchJson('/api/admin/contatos');
+        if (!Array.isArray(data) || data.length === 0) {
+          alert('ℹ️ Não há contatos para limpar.');
+          return;
+        }
+
+        const total = data.length;
+        
+        // Primeiro alerta com detalhes da operação
+        const msg = `⚠️ ATENÇÃO! Operação Destrutiva!\n\n`
+          + `Você está prestes a APAGAR TODOS OS ${total} ${total === 1 ? 'CONTATO' : 'CONTATOS'}!\n\n`
+          + `Esta ação:\n`
+          + `- Não pode ser desfeita\n`
+          + `- Apagará PERMANENTEMENTE todos os contatos\n`
+          + `- Não há backup automático\n\n`
+          + `Quantidade de registros: ${total}\n\n`
+          + `Tem certeza absoluta que deseja continuar?`;
+        
+        if (!confirm(msg)) {
+          alert('❌ Operação cancelada!\nNenhum contato foi removido.');
+          return;
+        }
+        
+        // Solicita digitação de CONFIRMAR
+        const confirmText = prompt(
+          '⚠️ Última chance!\n\n'
+          + 'Para confirmar a exclusão, digite CONFIRMAR\n'
+          + '(exatamente como mostrado, em maiúsculas):'
+        );
+        
+        // Remove espaços e verifica se digitou exatamente CONFIRMAR
+        const userInput = (confirmText || '').trim().toUpperCase();
+        if (userInput !== 'CONFIRMAR') {
+          alert('❌ Operação cancelada!\nNenhum contato foi removido.\n\n'
+            + 'Motivo: O texto digitado não corresponde a "CONFIRMAR".');
+          return;
+        }
+
+        // Se chegou aqui, executa a limpeza
+        const r = await fetch('/api/admin/contatos/clear', { 
+          method: 'POST', 
+          credentials: 'include' 
+        });
+        if (!r.ok) throw new Error('Falha ao limpar os contatos');
+        alert(`✅ Sucesso!\n\n${total} ${total === 1 ? 'contato foi removido' : 'contatos foram removidos'} com sucesso.`);
+        document.getElementById('btnCont').click();
+      } catch(e) { 
+        alert('❌ Erro ao limpar contatos!\n\n' + e.message + '\n\nNenhum contato foi removido.'); 
+      }
+    });
+
+    // Botão de Sair
+    document.getElementById('btnLogout').addEventListener('click', async ()=> {
+      if (!confirm('🔐 Sair do Painel Admin?\n\nVocê precisará fazer login novamente para acessar.')) {
+        return;
+      }
+      try { 
+        await fetch('/api/admin/logout', { 
+          method: 'POST',
+          credentials: 'include'
+        });
+      } catch(e) { 
+        console.error('Erro ao fazer logout:', e);
+      } finally {
+        window.location.href = '/admin-login.html';
+      }
+    });
+
+    // auto-load inscriptions on open
+    (async ()=>{ try{ const data = await fetchJson('/api/admin/inscricoes'); renderInscricoes(data);}catch(e){ /* ignore */ } })();
+  </script>
+</body>
+</html>
